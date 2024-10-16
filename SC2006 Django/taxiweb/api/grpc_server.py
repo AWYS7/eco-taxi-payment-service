@@ -99,7 +99,7 @@ def serve():
         server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
         payment_pb2_grpc.add_PaymentServiceServicer_to_server(PaymentService(), server)
         print("Server configured, adding insecure port...")  # Debugging message
-        server.add_insecure_port('[::]:50051')
+        server.add_insecure_port('[::]:5004')
         print("Port added, starting server...")  # Debugging message
         server.start()
         print("Server started successfully!")  # Debugging message
