@@ -11,5 +11,6 @@ This project demonstrates the gRPC payment service using Django as the backend a
 │   │   ├── payment.proto          # Proto definition for gRPC service
 │   │   ├── payment_pb2.py         # Generated code from proto file
 │   │   ├── payment_pb2_grpc.py    # Generated gRPC service code from proto file
-│   ├── settings.py                # Django settings
-└── README.md
+│   ├──taxiweb
+|       ├──settings.py        # Django settings
+|
