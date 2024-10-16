@@ -36,3 +36,13 @@ DATABASES = {
     }
 }
 ```
+
+# Notes
+
+**Important:** Fix the import every time you compile the proto files. Ensure that you are using the correct import statement for `payment_pb2`.
+
+Use the following line in the generated `payment_pb2_grpc.py` file:
+```python
+from proto import payment_pb2 as payment__pb2
+```
+
