@@ -11,7 +11,7 @@ from proto import payment_pb2_grpc, payment_pb2
 def run():
     # Connect to the gRPC server
     print("Connecting to gRPC server...")
-    with grpc.insecure_channel('localhost:50051') as channel:
+    with grpc.insecure_channel('localhost:5004') as channel:
         stub = payment_pb2_grpc.PaymentServiceStub(channel)
 
         # Test RemoveCard request to remove the card before adding it again
