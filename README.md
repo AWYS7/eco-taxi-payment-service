@@ -14,7 +14,7 @@ This project demonstrates the gRPC payment service using Django as the backend a
 │   ├──taxiweb_app
 │       ├──settings.py        # Django settings
 │
-
+```
 ## Features
 gRPC Server: Provides services to manage card payment methods and process payments.
 Card Operations: Add, update, retrieve, and delete card details.
@@ -35,3 +35,4 @@ DATABASES = {
         'PORT': '3306',
     }
 }
+```
