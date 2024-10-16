@@ -4,7 +4,7 @@ import grpc
 import warnings
 
 #fix the import everytime you compile!!!!
-#from taxiweb.proto import payment_pb2 as payment__pb2
+#from proto import payment_pb2 as payment__pb2
 
 from proto import payment_pb2 as payment__pb2
 
