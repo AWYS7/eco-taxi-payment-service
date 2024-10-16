@@ -17,8 +17,11 @@ This project demonstrates the gRPC payment service using Django as the backend a
 ```
 ## Features
 gRPC Server: Provides services to manage card payment methods and process payments.
+
 Card Operations: Add, update, retrieve, and delete card details.
+
 Payment Processing: Simulates processing a payment using stored card information.
+
 MySQL Integration: Django ORM is used to interact with a MySQL database.
 
 ## Setting Up Environment
