@@ -1,0 +1,78 @@
+syntax = "proto3";
+
+service PaymentService {
+    // Existing payment service
+    rpc ProcessPayment (PaymentRequest) returns (PaymentResponse);
+
+    // New card-related operations
+    rpc AddCard (AddCardRequest) returns (AddCardResponse);
+    rpc GetCards (GetCardsRequest) returns (GetCardsResponse);
+    rpc RemoveCard (RemoveCardRequest) returns (RemoveCardResponse);
+    rpc UpdateCard (UpdateCardRequest) returns (UpdateCardResponse);
+}
+
+message PaymentRequest {
+    string user_id = 1;
+    string card_id = 2;
+    double amount = 3;
+}
+
+message PaymentResponse {
+    string status = 1;
+    string message = 2;
+    double amount = 3;
+}
+
+// Card-related messages
+message AddCardRequest {
+    string user_id = 1;
+    string card_id = 2;
+    string card_number = 3;
+    string card_holder_name = 4;  // Updated field for consistency
+    string expiry_date = 5;
+    string cvv = 6;
+}
+
+message AddCardResponse {
+    string status = 1;
+    string message = 2;
+}
+
+message GetCardsRequest {
+    string user_id = 1;
+}
+
+message GetCardsResponse {
+    repeated Card cards = 1;
+}
+
+message RemoveCardRequest {
+    string user_id = 1;
+    string card_id = 2;
+}
+
+message RemoveCardResponse {
+    string status = 1;
+    string message = 2;
+}
+
+message UpdateCardRequest {
+    string user_id = 1;
+    string card_id = 2;
+    string card_number = 3;
+    string card_holder_name = 4;
+    string expiry_date = 5;
+    string cvv = 6;
+}
+
+message UpdateCardResponse {
+    string status = 1;
+    string message = 2;
+}
+
+message Card {
+    string card_id = 1;
+    string card_number = 2;
+    string card_holder_name = 3;
+    string expiry_date = 4;
+}
