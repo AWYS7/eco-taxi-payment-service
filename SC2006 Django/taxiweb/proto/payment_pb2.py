@@ -22,37 +22,34 @@ _runtime_version.ValidateProtobufRuntimeVersion(
 _sym_db = _symbol_database.Default()
 
 
+from google.protobuf import timestamp_pb2 as google_dot_protobuf_dot_timestamp__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\rpayment.proto\"B\n\x0ePaymentRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\t\x12\x0f\n\x07\x63\x61rd_id\x18\x02 \x01(\t\x12\x0e\n\x06\x61mount\x18\x03 \x01(\x01\"B\n\x0fPaymentResponse\x12\x0e\n\x06status\x18\x01 \x01(\t\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\x0e\n\x06\x61mount\x18\x03 \x01(\x01\"\x83\x01\n\x0e\x41\x64\x64\x43\x61rdRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\t\x12\x0f\n\x07\x63\x61rd_id\x18\x02 \x01(\t\x12\x13\n\x0b\x63\x61rd_number\x18\x03 \x01(\t\x12\x18\n\x10\x63\x61rd_holder_name\x18\x04 \x01(\t\x12\x13\n\x0b\x65xpiry_date\x18\x05 \x01(\t\x12\x0b\n\x03\x63vv\x18\x06 \x01(\t\"2\n\x0f\x41\x64\x64\x43\x61rdResponse\x12\x0e\n\x06status\x18\x01 \x01(\t\x12\x0f\n\x07message\x18\x02 \x01(\t\"\"\n\x0fGetCardsRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\t\"(\n\x10GetCardsResponse\x12\x14\n\x05\x63\x61rds\x18\x01 \x03(\x0b\x32\x05.Card\"5\n\x11RemoveCardRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\t\x12\x0f\n\x07\x63\x61rd_id\x18\x02 \x01(\t\"5\n\x12RemoveCardResponse\x12\x0e\n\x06status\x18\x01 \x01(\t\x12\x0f\n\x07message\x18\x02 \x01(\t\"\x86\x01\n\x11UpdateCardRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\t\x12\x0f\n\x07\x63\x61rd_id\x18\x02 \x01(\t\x12\x13\n\x0b\x63\x61rd_number\x18\x03 \x01(\t\x12\x18\n\x10\x63\x61rd_holder_name\x18\x04 \x01(\t\x12\x13\n\x0b\x65xpiry_date\x18\x05 \x01(\t\x12\x0b\n\x03\x63vv\x18\x06 \x01(\t\"5\n\x12UpdateCardResponse\x12\x0e\n\x06status\x18\x01 \x01(\t\x12\x0f\n\x07message\x18\x02 \x01(\t\"[\n\x04\x43\x61rd\x12\x0f\n\x07\x63\x61rd_id\x18\x01 \x01(\t\x12\x13\n\x0b\x63\x61rd_number\x18\x02 \x01(\t\x12\x18\n\x10\x63\x61rd_holder_name\x18\x03 \x01(\t\x12\x13\n\x0b\x65xpiry_date\x18\x04 \x01(\t2\x92\x02\n\x0ePaymentService\x12\x33\n\x0eProcessPayment\x12\x0f.PaymentRequest\x1a\x10.PaymentResponse\x12,\n\x07\x41\x64\x64\x43\x61rd\x12\x0f.AddCardRequest\x1a\x10.AddCardResponse\x12/\n\x08GetCards\x12\x10.GetCardsRequest\x1a\x11.GetCardsResponse\x12\x35\n\nRemoveCard\x12\x12.RemoveCardRequest\x1a\x13.RemoveCardResponse\x12\x35\n\nUpdateCard\x12\x12.UpdateCardRequest\x1a\x13.UpdateCardResponseb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\rpayment.proto\x12\x0fpayment_service\x1a\x1fgoogle/protobuf/timestamp.proto\"\x9f\x01\n\x04\x43\x61rd\x12\n\n\x02id\x18\x01 \x01(\x04\x12\x13\n\x0b\x63\x61rd_number\x18\x02 \x01(\t\x12\x13\n\x0b\x63\x61rd_holder\x18\x03 \x01(\t\x12/\n\x0b\x65xpiry_date\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0b\n\x03\x63vv\x18\x05 \x01(\x04\x12\x12\n\nis_default\x18\x06 \x01(\x08\x12\x0f\n\x07user_id\x18\x07 \x01(\x04\"\"\n\x0fGetCardsRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\x04\"9\n\x10GetCardsResponse\x12%\n\x06result\x18\x01 \x03(\x0b\x32\x15.payment_service.Card\"\xa0\x01\n\x11\x43reateCardRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\x04\x12\x13\n\x0b\x63\x61rd_number\x18\x02 \x01(\t\x12\x13\n\x0b\x63\x61rd_holder\x18\x03 \x01(\t\x12/\n\x0b\x65xpiry_date\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0b\n\x03\x63vv\x18\x05 \x01(\x04\x12\x12\n\nis_default\x18\x06 \x01(\x08\"$\n\x12\x43reateCardResponse\x12\x0e\n\x06result\x18\x01 \x01(\t\"\xac\x01\n\x11UpdateCardRequest\x12\n\n\x02id\x18\x01 \x01(\x04\x12\x13\n\x0b\x63\x61rd_number\x18\x02 \x01(\t\x12\x13\n\x0b\x63\x61rd_holder\x18\x03 \x01(\t\x12/\n\x0b\x65xpiry_date\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0b\n\x03\x63vv\x18\x05 \x01(\x04\x12\x12\n\nis_default\x18\x06 \x01(\x08\x12\x0f\n\x07user_id\x18\x07 \x01(\x04\"$\n\x12UpdateCardResponse\x12\x0e\n\x06result\x18\x01 \x01(\t\"0\n\x11\x44\x65leteCardRequest\x12\n\n\x02id\x18\x01 \x01(\x04\x12\x0f\n\x07user_id\x18\x02 \x01(\x04\"$\n\x12\x44\x65leteCardResponse\x12\x0e\n\x06result\x18\x01 \x01(\t2\xe6\x02\n\x0ePaymentService\x12O\n\x08GetCards\x12 .payment_service.GetCardsRequest\x1a!.payment_service.GetCardsResponse\x12U\n\nCreateCard\x12\".payment_service.CreateCardRequest\x1a#.payment_service.CreateCardResponse\x12U\n\nUpdateCard\x12\".payment_service.UpdateCardRequest\x1a#.payment_service.UpdateCardResponse\x12U\n\nDeleteCard\x12\".payment_service.DeleteCardRequest\x1a#.payment_service.DeleteCardResponseb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'payment_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
   DESCRIPTOR._loaded_options = None
-  _globals['_PAYMENTREQUEST']._serialized_start=17
-  _globals['_PAYMENTREQUEST']._serialized_end=83
-  _globals['_PAYMENTRESPONSE']._serialized_start=85
-  _globals['_PAYMENTRESPONSE']._serialized_end=151
-  _globals['_ADDCARDREQUEST']._serialized_start=154
-  _globals['_ADDCARDREQUEST']._serialized_end=285
-  _globals['_ADDCARDRESPONSE']._serialized_start=287
-  _globals['_ADDCARDRESPONSE']._serialized_end=337
-  _globals['_GETCARDSREQUEST']._serialized_start=339
-  _globals['_GETCARDSREQUEST']._serialized_end=373
-  _globals['_GETCARDSRESPONSE']._serialized_start=375
-  _globals['_GETCARDSRESPONSE']._serialized_end=415
-  _globals['_REMOVECARDREQUEST']._serialized_start=417
-  _globals['_REMOVECARDREQUEST']._serialized_end=470
-  _globals['_REMOVECARDRESPONSE']._serialized_start=472
-  _globals['_REMOVECARDRESPONSE']._serialized_end=525
-  _globals['_UPDATECARDREQUEST']._serialized_start=528
-  _globals['_UPDATECARDREQUEST']._serialized_end=662
-  _globals['_UPDATECARDRESPONSE']._serialized_start=664
-  _globals['_UPDATECARDRESPONSE']._serialized_end=717
-  _globals['_CARD']._serialized_start=719
-  _globals['_CARD']._serialized_end=810
-  _globals['_PAYMENTSERVICE']._serialized_start=813
-  _globals['_PAYMENTSERVICE']._serialized_end=1087
+  _globals['_CARD']._serialized_start=68
+  _globals['_CARD']._serialized_end=227
+  _globals['_GETCARDSREQUEST']._serialized_start=229
+  _globals['_GETCARDSREQUEST']._serialized_end=263
+  _globals['_GETCARDSRESPONSE']._serialized_start=265
+  _globals['_GETCARDSRESPONSE']._serialized_end=322
+  _globals['_CREATECARDREQUEST']._serialized_start=325
+  _globals['_CREATECARDREQUEST']._serialized_end=485
+  _globals['_CREATECARDRESPONSE']._serialized_start=487
+  _globals['_CREATECARDRESPONSE']._serialized_end=523
+  _globals['_UPDATECARDREQUEST']._serialized_start=526
+  _globals['_UPDATECARDREQUEST']._serialized_end=698
+  _globals['_UPDATECARDRESPONSE']._serialized_start=700
+  _globals['_UPDATECARDRESPONSE']._serialized_end=736
+  _globals['_DELETECARDREQUEST']._serialized_start=738
+  _globals['_DELETECARDREQUEST']._serialized_end=786
+  _globals['_DELETECARDRESPONSE']._serialized_start=788
+  _globals['_DELETECARDRESPONSE']._serialized_end=824
+  _globals['_PAYMENTSERVICE']._serialized_start=827
+  _globals['_PAYMENTSERVICE']._serialized_end=1185
 # @@protoc_insertion_point(module_scope)

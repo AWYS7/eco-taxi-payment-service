@@ -1,48 +1,77 @@
-import os
-import sys
 import grpc
+import sys
+import os
 
-# Add the root project directory to sys.path so that the proto module can be found
+# Add the project root and proto directory to sys.path
 project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(project_root)
+sys.path.append(os.path.join(project_root, 'proto'))
 
 from proto import payment_pb2_grpc, payment_pb2
+from google.protobuf.timestamp_pb2 import Timestamp
+from datetime import datetime
 
 def run():
-    # Connect to the gRPC server
-    print("Connecting to gRPC server...")
-    with grpc.insecure_channel('localhost:5004') as channel:
+    with grpc.insecure_channel('localhost:50051') as channel:
         stub = payment_pb2_grpc.PaymentServiceStub(channel)
 
-        # Test RemoveCard request to remove the card before adding it again
-        print("\nRemoving existing card before adding a new one...")
-        remove_card_response = stub.RemoveCard(payment_pb2.RemoveCardRequest(
-            user_id="1",
-            card_id="1"
-        ))
-        print(f"RemoveCard Response: {remove_card_response.status} - {remove_card_response.message}")
-
-        # Test AddCard request
-        print("\nSending AddCard request...")
-        add_card_response = stub.AddCard(payment_pb2.AddCardRequest(
-            user_id="1",
-            card_id="1",  # Card ID is reused after removal
+        # Test CreateCard
+        expiry_date = Timestamp()
+        expiry_date.FromDatetime(datetime(2025, 12, 31))
+        print("\nSending CreateCard request...")
+        create_response = stub.CreateCard(payment_pb2.CreateCardRequest(
+            user_id=1,
             card_number="4111111111111111",
-            card_holder_name="John Doe",
-            expiry_date="12/25",  # Should match the proto field
-            cvv="123"
+            card_holder="James Doe",
+            expiry_date=expiry_date,
+            cvv=123,
+            is_default=True
         ))
-        print(f"AddCard Response: {add_card_response.status} - {add_card_response.message}")
+        print(f"CreateCard Response: {create_response.result}")
 
-        # Test GetCards request
+        # Test GetCards
         print("\nSending GetCards request...")
-        get_cards_response = stub.GetCards(payment_pb2.GetCardsRequest(user_id="1"))
-        if get_cards_response.cards:
-            print("GetCards Response: Found cards:")
-            for card in get_cards_response.cards:
-                print(f"  Card ID: {card.card_id}, Number: {card.card_number}, Holder: {card.card_holder_name}, Expiry: {card.expiry_date}")
+        get_cards_response = stub.GetCards(payment_pb2.GetCardsRequest(user_id=1))
+        print("GetCards Response:")
+        for card in get_cards_response.result:
+            print(f"Card ID: {card.id}, Card Number: {card.card_number}, Holder: {card.card_holder}, Expiry: {card.expiry_date.seconds}, CVV: {card.cvv}")
+
+        # Test UpdateCard
+        expiry_date_update = Timestamp()
+        expiry_date_update.FromDatetime(datetime(2026, 5, 15))
+        print("\nSending UpdateCard request...")
+        update_response = stub.UpdateCard(payment_pb2.UpdateCardRequest(
+            id=get_cards_response.result[0].id,  # Using the ID from the first card returned in GetCards
+            card_number="4222222222222222",  # New card number
+            card_holder="Jane Doe",  # Updated card holder
+            expiry_date=expiry_date_update,
+            cvv=456,
+            is_default=False
+        ))
+        print(f"UpdateCard Response: {update_response.result}")
+
+        # Test GetCards 
+        print("\nSending GetCards request after Update...")
+        get_cards_response = stub.GetCards(payment_pb2.GetCardsRequest(user_id=1))
+        print("GetCards Response after update:")
+        for card in get_cards_response.result:
+            print(f"Card ID: {card.id}, Card Number: {card.card_number}, Holder: {card.card_holder}, Expiry: {card.expiry_date.seconds}, CVV: {card.cvv}")
+
+        # Test DeleteCard
+        print("\nSending DeleteCard request...")
+        delete_response = stub.DeleteCard(payment_pb2.DeleteCardRequest(
+            id=get_cards_response.result[0].id  # Using the ID from the first card returned in GetCards
+        ))
+        print(f"DeleteCard Response: {delete_response.result}")
+
+        # Test GetCards again after Delete
+        print("\nSending GetCards request after Delete...")
+        get_cards_response = stub.GetCards(payment_pb2.GetCardsRequest(user_id=1))
+        if not get_cards_response.result:
+            print("No cards found.")
         else:
-            print("GetCards Response: No cards found.")
+            for card in get_cards_response.result:
+                print(f"Card ID: {card.id}, Card Number: {card.card_number}, Holder: {card.card_holder}, Expiry: {card.expiry_date.seconds}, CVV: {card.cvv}")
 
 if __name__ == "__main__":
     run()

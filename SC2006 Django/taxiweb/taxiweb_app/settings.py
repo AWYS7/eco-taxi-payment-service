@@ -51,7 +51,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'taxiweb.urls'
+ROOT_URLCONF = 'taxiweb_app.urls'
 
 TEMPLATES = [
     {
@@ -69,7 +69,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'taxiweb.wsgi.application'
+WSGI_APPLICATION = 'taxiweb_app.wsgi.application'
 
 
 # Database

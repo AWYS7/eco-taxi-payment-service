@@ -3,10 +3,7 @@
 import grpc
 import warnings
 
-#fix the import everytime you compile!!!!
-#from proto import payment_pb2 as payment__pb2
-
-from proto import payment_pb2 as payment__pb2
+import payment_pb2 as payment__pb2
 
 GRPC_GENERATED_VERSION = '1.66.2'
 GRPC_VERSION = grpc.__version__
@@ -37,49 +34,30 @@ class PaymentServiceStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.ProcessPayment = channel.unary_unary(
-                '/PaymentService/ProcessPayment',
-                request_serializer=payment__pb2.PaymentRequest.SerializeToString,
-                response_deserializer=payment__pb2.PaymentResponse.FromString,
-                _registered_method=True)
-        self.AddCard = channel.unary_unary(
-                '/PaymentService/AddCard',
-                request_serializer=payment__pb2.AddCardRequest.SerializeToString,
-                response_deserializer=payment__pb2.AddCardResponse.FromString,
-                _registered_method=True)
         self.GetCards = channel.unary_unary(
-                '/PaymentService/GetCards',
+                '/payment_service.PaymentService/GetCards',
                 request_serializer=payment__pb2.GetCardsRequest.SerializeToString,
                 response_deserializer=payment__pb2.GetCardsResponse.FromString,
                 _registered_method=True)
-        self.RemoveCard = channel.unary_unary(
-                '/PaymentService/RemoveCard',
-                request_serializer=payment__pb2.RemoveCardRequest.SerializeToString,
-                response_deserializer=payment__pb2.RemoveCardResponse.FromString,
+        self.CreateCard = channel.unary_unary(
+                '/payment_service.PaymentService/CreateCard',
+                request_serializer=payment__pb2.CreateCardRequest.SerializeToString,
+                response_deserializer=payment__pb2.CreateCardResponse.FromString,
                 _registered_method=True)
         self.UpdateCard = channel.unary_unary(
-                '/PaymentService/UpdateCard',
+                '/payment_service.PaymentService/UpdateCard',
                 request_serializer=payment__pb2.UpdateCardRequest.SerializeToString,
                 response_deserializer=payment__pb2.UpdateCardResponse.FromString,
+                _registered_method=True)
+        self.DeleteCard = channel.unary_unary(
+                '/payment_service.PaymentService/DeleteCard',
+                request_serializer=payment__pb2.DeleteCardRequest.SerializeToString,
+                response_deserializer=payment__pb2.DeleteCardResponse.FromString,
                 _registered_method=True)
 
 
 class PaymentServiceServicer(object):
     """Missing associated documentation comment in .proto file."""
-
-    def ProcessPayment(self, request, context):
-        """Existing payment service
-        """
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
-    def AddCard(self, request, context):
-        """New card-related operations
-        """
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
 
     def GetCards(self, request, context):
         """Missing associated documentation comment in .proto file."""
@@ -87,13 +65,20 @@ class PaymentServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def RemoveCard(self, request, context):
+    def CreateCard(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def UpdateCard(self, request, context):
+        """fixed typo
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def DeleteCard(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -102,95 +87,36 @@ class PaymentServiceServicer(object):
 
 def add_PaymentServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'ProcessPayment': grpc.unary_unary_rpc_method_handler(
-                    servicer.ProcessPayment,
-                    request_deserializer=payment__pb2.PaymentRequest.FromString,
-                    response_serializer=payment__pb2.PaymentResponse.SerializeToString,
-            ),
-            'AddCard': grpc.unary_unary_rpc_method_handler(
-                    servicer.AddCard,
-                    request_deserializer=payment__pb2.AddCardRequest.FromString,
-                    response_serializer=payment__pb2.AddCardResponse.SerializeToString,
-            ),
             'GetCards': grpc.unary_unary_rpc_method_handler(
                     servicer.GetCards,
                     request_deserializer=payment__pb2.GetCardsRequest.FromString,
                     response_serializer=payment__pb2.GetCardsResponse.SerializeToString,
             ),
-            'RemoveCard': grpc.unary_unary_rpc_method_handler(
-                    servicer.RemoveCard,
-                    request_deserializer=payment__pb2.RemoveCardRequest.FromString,
-                    response_serializer=payment__pb2.RemoveCardResponse.SerializeToString,
+            'CreateCard': grpc.unary_unary_rpc_method_handler(
+                    servicer.CreateCard,
+                    request_deserializer=payment__pb2.CreateCardRequest.FromString,
+                    response_serializer=payment__pb2.CreateCardResponse.SerializeToString,
             ),
             'UpdateCard': grpc.unary_unary_rpc_method_handler(
                     servicer.UpdateCard,
                     request_deserializer=payment__pb2.UpdateCardRequest.FromString,
                     response_serializer=payment__pb2.UpdateCardResponse.SerializeToString,
             ),
+            'DeleteCard': grpc.unary_unary_rpc_method_handler(
+                    servicer.DeleteCard,
+                    request_deserializer=payment__pb2.DeleteCardRequest.FromString,
+                    response_serializer=payment__pb2.DeleteCardResponse.SerializeToString,
+            ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'PaymentService', rpc_method_handlers)
+            'payment_service.PaymentService', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
-    server.add_registered_method_handlers('PaymentService', rpc_method_handlers)
+    server.add_registered_method_handlers('payment_service.PaymentService', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
 class PaymentService(object):
     """Missing associated documentation comment in .proto file."""
-
-    @staticmethod
-    def ProcessPayment(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(
-            request,
-            target,
-            '/PaymentService/ProcessPayment',
-            payment__pb2.PaymentRequest.SerializeToString,
-            payment__pb2.PaymentResponse.FromString,
-            options,
-            channel_credentials,
-            insecure,
-            call_credentials,
-            compression,
-            wait_for_ready,
-            timeout,
-            metadata,
-            _registered_method=True)
-
-    @staticmethod
-    def AddCard(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(
-            request,
-            target,
-            '/PaymentService/AddCard',
-            payment__pb2.AddCardRequest.SerializeToString,
-            payment__pb2.AddCardResponse.FromString,
-            options,
-            channel_credentials,
-            insecure,
-            call_credentials,
-            compression,
-            wait_for_ready,
-            timeout,
-            metadata,
-            _registered_method=True)
 
     @staticmethod
     def GetCards(request,
@@ -206,7 +132,7 @@ class PaymentService(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/PaymentService/GetCards',
+            '/payment_service.PaymentService/GetCards',
             payment__pb2.GetCardsRequest.SerializeToString,
             payment__pb2.GetCardsResponse.FromString,
             options,
@@ -220,7 +146,7 @@ class PaymentService(object):
             _registered_method=True)
 
     @staticmethod
-    def RemoveCard(request,
+    def CreateCard(request,
             target,
             options=(),
             channel_credentials=None,
@@ -233,9 +159,9 @@ class PaymentService(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/PaymentService/RemoveCard',
-            payment__pb2.RemoveCardRequest.SerializeToString,
-            payment__pb2.RemoveCardResponse.FromString,
+            '/payment_service.PaymentService/CreateCard',
+            payment__pb2.CreateCardRequest.SerializeToString,
+            payment__pb2.CreateCardResponse.FromString,
             options,
             channel_credentials,
             insecure,
@@ -260,9 +186,36 @@ class PaymentService(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/PaymentService/UpdateCard',
+            '/payment_service.PaymentService/UpdateCard',
             payment__pb2.UpdateCardRequest.SerializeToString,
             payment__pb2.UpdateCardResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def DeleteCard(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/payment_service.PaymentService/DeleteCard',
+            payment__pb2.DeleteCardRequest.SerializeToString,
+            payment__pb2.DeleteCardResponse.FromString,
             options,
             channel_credentials,
             insecure,

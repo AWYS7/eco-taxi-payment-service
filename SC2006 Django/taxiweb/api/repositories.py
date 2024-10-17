@@ -2,27 +2,31 @@ from .models import CardPaymentMethod
 
 class CardRepository:
     @staticmethod
-    def add_card(card_details):
+    def create_card(card_details):
         card = CardPaymentMethod(**card_details)
         card.save()
         return card
 
     @staticmethod
-    def remove_card(user_id, card_id):
-        try:
-            # Fetch the card by its card_id and delete it
-            card = CardPaymentMethod.objects.get(user_id=user_id, card_id=card_id)
-            card.delete()
-        except CardPaymentMethod.DoesNotExist:
-            return None  # If card is not found, return None or handle as needed
-
-    @staticmethod
     def get_cards(user_id):
         return CardPaymentMethod.objects.filter(user_id=user_id)
-    
+
     @staticmethod
-    def get_card_by_id(user_id, card_id):
+    def update_card(card_id, card_details):
         try:
-            return CardPaymentMethod.objects.get(user_id=user_id, card_id=card_id)
+            card = CardPaymentMethod.objects.get(id=card_id)
+            for key, value in card_details.items():
+                setattr(card, key, value)
+            card.save()
+            return card
         except CardPaymentMethod.DoesNotExist:
-            return None  # Handle card not found
+            return None
+
+    @staticmethod
+    def delete_card(card_id):
+        try:
+            card = CardPaymentMethod.objects.get(id=card_id)
+            card.delete()
+            return True
+        except CardPaymentMethod.DoesNotExist:
+            return False
