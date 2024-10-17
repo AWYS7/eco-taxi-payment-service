@@ -12,7 +12,7 @@ from google.protobuf.timestamp_pb2 import Timestamp
 from datetime import datetime
 
 def run():
-    with grpc.insecure_channel('localhost:50051') as channel:
+    with grpc.insecure_channel('localhost:5004') as channel:
         stub = payment_pb2_grpc.PaymentServiceStub(channel)
 
         # Test CreateCard
