@@ -78,7 +78,7 @@ class PaymentService(payment_pb2_grpc.PaymentServiceServicer):
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     payment_pb2_grpc.add_PaymentServiceServicer_to_server(PaymentService(), server)
-    server.add_insecure_port('[::]:50051')
+    server.add_insecure_port('[::]:5004)
     server.start()
     print("Starting server...")
     server.wait_for_termination()
