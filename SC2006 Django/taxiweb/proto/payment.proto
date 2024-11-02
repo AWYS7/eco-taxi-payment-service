@@ -15,7 +15,7 @@ message Card {
   uint64 id = 1;
   string card_number = 2;
   string card_holder = 3;
-  google.protobuf.Timestamp expiry_date = 4;  // use this for DateField
+  google.protobuf.Timestamp expiry_date = 4;  
   uint64 cvv = 5;
   bool is_default = 6;
   uint64 user_id = 7;
