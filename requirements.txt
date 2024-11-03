@@ -1,0 +1,7 @@
+django
+djangorestframework
+grpcio
+grpcio-tools
+mysqlclient
+protobuf
+python-dotenv

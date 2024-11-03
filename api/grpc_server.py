@@ -19,7 +19,7 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'taxiweb_app.settings')
 import django
 django.setup()
 
-from api.repositories import CardRepository
+from apies import CardRepository
 
 
 class PaymentService(payment_pb2_grpc.PaymentServiceServicer):
