@@ -3,6 +3,7 @@ from .models import CardPaymentMethod
 class CardRepository:
     @staticmethod
     def create_card(card_details):
+        print("card_details: ", card_details)
         card = CardPaymentMethod(**card_details)
         card.save()
         return card

@@ -9,4 +9,4 @@ class CardPaymentMethod(models.Model):
     is_default = models.BooleanField()
 
     def __str__(self):
-        return f'{self.card_holder_name} - {self.card_number[-4:]}'
+        return f'{self.card_holder} - {self.card_number[-4:]}'

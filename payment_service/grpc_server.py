@@ -1,8 +1,13 @@
+# Initialize Django
+import os
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'eco_taxi_backend.settings')
+import django
+django.setup()
 import grpc
 from concurrent import futures
 from google.protobuf.timestamp_pb2 import Timestamp
 from datetime import datetime
-import os
+
 import sys
 from payment_service.repositories import CardRepository
 
@@ -13,11 +18,6 @@ sys.path.append(os.path.join(project_root, 'proto'))
 
 # import AFTER proto directory
 from proto import payment_service_pb2, payment_service_pb2_grpc
-
-# Initialize Django
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'eco_taxi_backend.settings')
-import django
-django.setup()
 
 class PaymentService(payment_service_pb2_grpc.PaymentServiceServicer):
     def GetCards(self, request, context):
@@ -31,7 +31,7 @@ class PaymentService(payment_service_pb2_grpc.PaymentServiceServicer):
                 card_message = payment_service_pb2.Card(
                     id=card.id,
                     card_number=card.card_number,
-                    card_holder=card.card_holder_name,
+                    card_holder=card.card_holder,
                     expiry_date=expiry_date_proto,
                     cvv=card.cvv,
                     is_default=card.is_default,
@@ -48,10 +48,11 @@ class PaymentService(payment_service_pb2_grpc.PaymentServiceServicer):
     def CreateCard(self, request, context):
         try:
             print("Create Card...")
+            print("request: ", request)
             card_details = {
                 'user_id': request.user_id,
                 'card_number': request.card_number,
-                'card_holder_name': request.card_holder,
+                'card_holder': request.card_holder,
                 'expiry_date': datetime.fromtimestamp(request.expiry_date.seconds),
                 'cvv': request.cvv,
                 'is_default': request.is_default
@@ -69,7 +70,7 @@ class PaymentService(payment_service_pb2_grpc.PaymentServiceServicer):
             print("Update Card...")
             card_details = {
                 'card_number': request.card_number,
-                'card_holder_name': request.card_holder,
+                'card_holder': request.card_holder,
                 'expiry_date': datetime.fromtimestamp(request.expiry_date.seconds),
                 'cvv': request.cvv,
                 'is_default': request.is_default

@@ -13,7 +13,8 @@ install:
 
 run:
 	# python3 manage.py runserver  #by default 8000
-	python3 manage.py runserver 8083
+	# python3 manage.py runserver 8083
+	python -m payment_service.grpc_server
 
 
 	# makemigrations 
