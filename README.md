@@ -14,39 +14,39 @@ This project is part of the EcoTaxi ecosystem, which includes multiple repositor
 
 ## Project Structure
 
-    ```bash
-    eco-taxi-payment-service/
-    │
-    ├── eco_taxi_backend/
-    │   ├── __init__.py
-    │   ├── asgi.py
-    │   ├── settings.py
-    │   ├── urls.py
-    │   └── wsgi.py
-    │
-    ├── payment_service/
-    │   ├── migrations/
-    │   ├── __init__.py
-    │   ├── admin.py
-    │   ├── apps.py
-    │   ├── grpc_server.py
-    │   ├── models.py
-    │   ├── repositories.py
-    │   └── serializers.py
-    │
-    ├── proto/
-    │   ├── payment_service_pb2_grpc.py
-    │   ├── payment_service_pb2.py
-    │   └── payment_service.proto
-    │
-    ├── .gitignore
-    ├── app.env
-    ├── Dockerfile
-    ├── manage.py
-    ├── requirements.txt
-    ├── Makefile
-    └── README.md
-    ```
+```bash
+eco-taxi-payment-service/
+│
+├── eco_taxi_backend/
+│   ├── __init__.py
+│   ├── asgi.py
+│   ├── settings.py
+│   ├── urls.py
+│   └── wsgi.py
+│
+├── payment_service/
+│   ├── migrations/
+│   ├── __init__.py
+│   ├── admin.py
+│   ├── apps.py
+│   ├── grpc_server.py
+│   ├── models.py
+│   ├── repositories.py
+│   └── serializers.py
+│
+├── proto/
+│   ├── payment_service_pb2_grpc.py
+│   ├── payment_service_pb2.py
+│   └── payment_service.proto
+│
+├── .gitignore
+├── app.env
+├── Dockerfile
+├── manage.py
+├── requirements.txt
+├── Makefile
+└── README.md
+```
 
 ## Prerequisites
 
