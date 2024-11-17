@@ -1,42 +1,104 @@
-This project demonstrates the gRPC payment service using Django as the backend and a MySQL database for managing card payment methods. The project consists of a gRPC server that provides functionality for adding, updating, retrieving, and deleting card details. 
+# EcoTaxi Backend - Payment Service
+
+EcoTaxi Backend - Payment Service is responsible for handling payment-related requests received from the API Gateway. Using [Django ORM](https://docs.djangoproject.com/en/5.1/), it interacts with a [MySQL](https://dev.mysql.com/doc/) database to securely store and retrieve payment information without requiring raw SQL queries.
+
+## Git Repositories
+
+This project is part of the EcoTaxi ecosystem, which includes multiple repositories for the frontend, backend services, and API gateway:v
+
+- **Frontend**: [EcoTaxi Frontend](https://github.com/haiyen11231/eco-taxi-frontend.git)
+- **API Gateway**: [EcoTaxi API Gateway](https://github.com/haiyen11231/eco-taxi-api-gateway.git)
+- **User Service**: [EcoTaxi User Service](https://github.com/haiyen11231/eco-taxi-backend-user-service.git)
+- **Payment Service**: [EcoTaxi Payment Service](https://github.com/AWYS7/eco-taxi-payment-service.git)
+- **Trip Service**: [EcoTaxi Trip Service](https://github.com/lukea11/eco-taxi-backend-trip-service.git)
 
 ## Project Structure
-```bash
-├── taxiweb
-│   ├── api
-│   │   ├── grpc_server.py         # gRPC server implementation
-│   │   ├── grpc_client.py         # gRPC client for testing
-│   │   ├── repositories.py        # Repository class for card operations
-│   ├── proto
-│   │   ├── payment.proto          # Proto definition for gRPC service
-│   │   ├── payment_pb2.py         # Generated code from proto file
-│   │   ├── payment_pb2_grpc.py    # Generated gRPC service code from proto file
-│   ├──taxiweb_app
-│       ├──settings.py        # Django settings
-│
-```
-## Features
-gRPC Server: Provides services to manage card payment methods and process payments.
 
-Card Operations: Add, update, retrieve, and delete card details.
+    ```bash
+    eco-taxi-payment-service/
+    │
+    ├── eco_taxi_backend/
+    │   ├── __init__.py
+    │   ├── asgi.py
+    │   ├── settings.py
+    │   ├── urls.py
+    │   └── wsgi.py
+    │
+    ├── payment_service/
+    │   ├── migrations/
+    │   ├── __init__.py
+    │   ├── admin.py
+    │   ├── apps.py
+    │   ├── grpc_server.py
+    │   ├── models.py
+    │   ├── repositories.py
+    │   └── serializers.py
+    │
+    ├── proto/
+    │   ├── payment_service_pb2_grpc.py
+    │   ├── payment_service_pb2.py
+    │   └── payment_service.proto
+    │
+    ├── .gitignore
+    ├── app.env
+    ├── Dockerfile
+    ├── manage.py
+    ├── requirements.txt
+    ├── Makefile
+    └── README.md
+    ```
 
-Payment Processing: Simulates processing a payment using stored card information.
+## Prerequisites
 
-MySQL Integration: Django ORM is used to interact with a MySQL database.
+Before you begin, ensure that you have the following installed:
 
-## Setting Up Environment
-Set up your MySQL database and configure the settings.py under taxi_app
+- **Python**
+- **gRPC Tools** (Protocol Buffers and gRPC Go)
+- **MySQL**
+- **Make**
+- **Docker** (optional, for containerization)
 
-```bash
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'paymentdb',
-        'USER': 'root',
-        'PASSWORD': 'your_password',
-        'HOST': 'localhost',
-        'PORT': '3306',
-    }
-}
-```
+## Installation
 
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/AWYS7/eco-taxi-payment-service.git
+   cd eco-taxi-payment-service
+   ```
+
+2. Create the app.env file:
+
+Create a `app.env` file in the root directory of the project. This file should contain the environment variables required for the application to run. Here's a sample `app.env` file:
+
+    ```env
+    # Database configuration
+    MYSQL_HOST=mysql_host
+    MYSQL_PORT=mysql_port
+    MYSQL_USER=mysql_user
+    MYSQL_PASSWORD=mysql_password
+    MYSQL_DATABASE=mysql_db
+
+    # gRPC configuration
+    GRPC_PORT=grpc_port
+
+    PORT=port
+    ```
+
+Update the values with your own configuration:
+
+- **`MYSQL_*`**: MySQL configuration (host, port, user, password, and database).
+- **`GRPC_PORT`**: Port on which the gRPC server for User Service will run (e.g., localhost:5004).
+- **`PORT`**: Define the port number on which the User Service API will listen (e.g., 8083).
+
+3. Install dependencies:
+
+   ```bash
+   make install
+   ```
+
+4. Start the development server:
+
+   ```bash
+   make run
+   ```
