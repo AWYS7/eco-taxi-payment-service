@@ -71,19 +71,19 @@ Before you begin, ensure that you have the following installed:
 
 Create a `app.env` file in the root directory of the project. This file should contain the environment variables required for the application to run. Here's a sample `app.env` file:
 
-    ```env
-    # Database configuration
-    MYSQL_HOST=mysql_host
-    MYSQL_PORT=mysql_port
-    MYSQL_USER=mysql_user
-    MYSQL_PASSWORD=mysql_password
-    MYSQL_DATABASE=mysql_db
+```env
+# Database configuration
+MYSQL_HOST=mysql_host
+MYSQL_PORT=mysql_port
+MYSQL_USER=mysql_user
+MYSQL_PASSWORD=mysql_password
+MYSQL_DATABASE=mysql_db
 
-    # gRPC configuration
-    GRPC_PORT=grpc_port
+# gRPC configuration
+GRPC_PORT=grpc_port
 
-    PORT=port
-    ```
+PORT=port
+```
 
 Update the values with your own configuration:
 
